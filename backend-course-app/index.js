@@ -2,9 +2,10 @@ const express = require('express');
 const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose')
 const app = express();
+const cors = require('cors')
 
 app.use(express.json());
-
+app.use(cors())
 
 // Define mongoose Schema 
 const userSchema = new mongoose.Schema({
@@ -95,27 +96,33 @@ app.post('/admin/signup', async (req, res) => {
 
   admin = await Admin.findOne({username, password})
   if(admin){
-    res.status(403).json({massage : 'Admin already exits'});
+    res.status(403).json({success : false,massage : 'Admin already exits'});
   }else{
     const newAdmin = new Admin({username , password})
     await newAdmin.save()
     token = generateTokenAdmin(req.body)
-    res.json({ message: 'Admin created successfully'  , token1 : token});
+    res.json({ success : true,message: 'Admin created successfully'  , token1 : token});
   }
 });
 
 app.post('/admin/login', async (req, res) => {
   // logic to log in admin
-  let {username , password} = req.headers;
+  let {username , password} = req.body;
   admin = await Admin.findOne({username , password})
 
   if(admin){
     token = generateTokenAdmin(admin)
-    res.json({message : 'Login Successfully' , token1 : token})
+    res.json({success : true, message : 'Login Successfully' , token1 : token})
   }else{
-   res.status(403).json('Admin Authentication failed')
+   res.status(403).json({success : false ,message : 'Admin Authentication failed'})
   }
 });
+
+app.get('/admin/me' , authenticateJWTAdmin , (req,res)=>{
+  res.json({
+    auth : true,
+    user : req.user  })
+})
 
 app.post('/admin/courses', authenticateJWTAdmin , async (req, res) => {
   // logic to create a course
@@ -133,10 +140,10 @@ app.post('/admin/courses', authenticateJWTAdmin , async (req, res) => {
     const newCourse = new Course(course)
     const checkCourseExist = await Course.findOne({title : newCourse.title , description : newCourse.description , price  : newCourse.price , imageLink : newCourse.imageLink , published : newCourse.published})
     if(checkCourseExist){
-      res.json({message : "Course already created"})
+      res.json({success : false,message : "Course already created"})
     }else{
       await newCourse.save()
-      res.json({message : "Course created successfully" , courseId : course._id.toString()})
+      res.json({success : true , message : "Course created successfully" , courseId : course._id.toString()})
     }
 
   // }
