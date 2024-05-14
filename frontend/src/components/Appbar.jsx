@@ -33,7 +33,8 @@ function Appbar(){
         style={{
           display : "flex",
           justifyContent : "space-between",
-          padding : "10px"
+          padding : "10px",
+          paddingRight : "30px"
         }}
         >
              <Typography
@@ -51,7 +52,13 @@ function Appbar(){
             }}
             >
             <Typography
-             variant={"p"}
+             variant={"subtitle1"}
+             style={{
+              display : "flex",
+              justifyContent : "center",
+              alignItems : "center",
+              marginRight : 10
+             }}
              >
             {user}
             </Typography>
@@ -75,7 +82,8 @@ function Appbar(){
   style={{
     display : "flex",
     justifyContent : "space-between",
-    padding : "10px"
+    padding : "10px",
+    paddingRight : "30px"
   }}
   >
        <Typography

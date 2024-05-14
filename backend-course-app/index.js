@@ -126,24 +126,15 @@ app.get('/admin/me' , authenticateJWTAdmin , (req,res)=>{
 
 app.post('/admin/courses', authenticateJWTAdmin , async (req, res) => {
   // logic to create a course
-  // console.log(req.user.username)
   let course = req.body;
-  // title = course.title
-  // description = course.description
-
-  // let checkCourse =await Course.findOne({title , description})
   
-  // if(checkCourse){
-  //   res.json({message : "Course already exists"})
-  // }else{
-    // COURSES.push(course)
-    const newCourse = new Course(course)
+  const newCourse = new Course(course)
     const checkCourseExist = await Course.findOne({title : newCourse.title , description : newCourse.description , price  : newCourse.price , imageLink : newCourse.imageLink , published : newCourse.published})
     if(checkCourseExist){
       res.json({success : false,message : "Course already created"})
     }else{
       await newCourse.save()
-      res.json({success : true , message : "Course created successfully" , courseId : course._id.toString()})
+      res.json({success : true , message : "Course created successfully" , courseId : newCourse._id.toString()})
     }
 
   // }
@@ -158,6 +149,16 @@ app.put('/admin/courses/:courseId' , authenticateJWTAdmin,async (req, res) => {
     res.status(403).json({message : "Course doesn't exits"})
   }
 });
+
+app.get('/admin/course/:courseId', authenticateJWTAdmin ,async (req,res)=>{
+  const course = await Course.findById(req.params.courseId)
+  console.log(req.params.courseId)
+  if (course){
+    res.status(200).json({success: true, message : "Course fetched successfully", course})
+  }else{
+    res.status(403).json({success:false , message : "Course doesn't exits!!"})
+  }
+})
 
 app.get('/admin/courses', authenticateJWTAdmin ,async (req, res) => {
   // logic to get all courses

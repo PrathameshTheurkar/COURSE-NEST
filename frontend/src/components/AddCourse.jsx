@@ -1,9 +1,12 @@
 import { Button, Card, TextField, Typography } from "@mui/material"
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 
 function AddCourse(){
+    const navigate = useNavigate()
     const [title , setTitle] = useState("")
     const [description, setDescription] = useState("")
+    const [image, setImage] = useState("")
     
     return <div
     style={{
@@ -48,6 +51,17 @@ function AddCourse(){
             
             <br /><br />
 
+            <TextField
+            variant="outlined"
+            fullWidth = {true}
+            onChange={(e)=>{
+                setImage(e.target.value)
+            }}
+            label = "Image Link"
+            >
+            </TextField>
+
+            <br /><br />
             <Button
             variant="contained"
             size = "large"
@@ -57,6 +71,8 @@ function AddCourse(){
                         body : JSON.stringify({
                             title : title,
                             description: description,
+                            imageLink : image,
+                            published : true
 
                         }),
                         headers : {
@@ -64,14 +80,13 @@ function AddCourse(){
                             "Authorization" : "Bearer "+localStorage.getItem('token')
                         }
                     })
-                    // .then(res => res.json())
-                    // .then(res =>{
-                    //     if(res.success){
-                    //         localStorage.setItem('token' , res.token1)
-                    //         // navigate('/addcourse')
-                    //         window.location= "/addcourse"
-                    //     }
-                    // })
+                    .then(res => res.json())
+                    .then(res =>{
+                        if(res.success){
+                            navigate('/courses')
+                            // window.location= "/courses"
+                        }
+                    })
             }}
             >Add</Button>
         </Card>

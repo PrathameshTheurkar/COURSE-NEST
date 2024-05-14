@@ -1,3 +1,13 @@
-body{
+/* body{
     margin  : 0;
-}
+} */
+
+body {
+    overflow-x: hidden;
+    background-color: #eeeeee;
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+  }
+  
