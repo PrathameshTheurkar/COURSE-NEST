@@ -3,7 +3,7 @@ import { Button, Card, TextField} from "@mui/material"
 import { useState } from "react"
 // import { useParams } from "react-router-dom"
 
-function UpdateCourse({courseId}){
+function UpdateCourse({courseId, setCourse}){
     const [title , setTitle] = useState("")
     const [description, setDescription] = useState("")
     const [image, setImage] = useState("")
@@ -70,7 +70,11 @@ function UpdateCourse({courseId}){
                 .then(res => res.json())
                 .then(res =>{
                     if(res.success){
-                        // window.location= "/courses"
+                        setCourse({
+                            title : title,
+                            description : description,
+                            imageLink : image
+                        })
                     }
                 })
         }}

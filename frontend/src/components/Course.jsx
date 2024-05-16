@@ -40,9 +40,15 @@ function Course(){
         </div>
     }
 
-    return <div>
+    return <div
+    style={{
+        display : "flex",
+        alignItems : "center",
+        flexDirection : "column"
+    }}
+    >
         <CourseCard course={course}/>
-        <UpdateCourse courseId={courseId}/>
+        <UpdateCourse courseId={courseId} setCourse={setCourse}/>
     </div>
 
 }
