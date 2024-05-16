@@ -7,6 +7,7 @@ function Course(){
 
     const [course , setCourse] = useState({})
     const [success , setSuccess] = useState(false)
+    const [msg, setMsg] = useState('')
 
     useEffect(()=>{
         fetch('http://localhost:3000/admin/course/' + courseId, {
@@ -22,11 +23,17 @@ function Course(){
                 setCourse(res.course)
                 setSuccess(true)
             }
+            setMsg(res.message)
         })
     },[])
 
 
     if(!success){
+        if(msg == "Invalid courseId"){
+            return <div>
+                Invalid courseId
+            </div>
+        }
         return <div>
             Loading......
         </div>

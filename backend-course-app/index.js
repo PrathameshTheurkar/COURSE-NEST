@@ -86,7 +86,8 @@ const authenticateJWTUser = (req,res,next)=>{
 }
 
 // Connect to MongoDB
-mongoose.connect('mongodb+srv://prathameshtheurkar037:Prathamesh%401@cluster0.s8asa1j.mongodb.net/' ,  { useNewUrlParser: true, useUnifiedTopology: true, dbName: "course-selling-app" })
+// mongoose.connect('mongodb+srv://prathameshtheurkar037:Prathamesh%401@cluster0.s8asa1j.mongodb.net/' ,  { useNewUrlParser: true, useUnifiedTopology: true, dbName: "course-selling-app" })
+mongoose.connect('mongodb+srv://prathameshtheurkar037:Prathamesh%401@cluster0.s8asa1j.mongodb.net/' ,  { dbName: "course-selling-app" })
 
 // Admin routes
 app.post('/admin/signup', async (req, res) => {
@@ -142,17 +143,26 @@ app.post('/admin/courses', authenticateJWTAdmin , async (req, res) => {
 
 app.put('/admin/courses/:courseId' , authenticateJWTAdmin,async (req, res) => {
   // logic to edit a course
+  const isValid = mongoose.Types.ObjectId.isValid(req.params.courseId)
+  if(!isValid){
+    return res.status(403).json({success: false, message: "Invalid courseId"})
+  }
   const course =await Course.findByIdAndUpdate(req.params.courseId , req.body , {new : true})
   if(course){
-    res.json({message : "Course Updated Successfully"});  
+    res.json({success: true, message : "Course Updated Successfully"});  
   }else{
-    res.status(403).json({message : "Course doesn't exits"})
+    res.status(403).json({success: false, message : "Course doesn't exits"})
   }
 });
 
 app.get('/admin/course/:courseId', authenticateJWTAdmin ,async (req,res)=>{
+  // logic to get one course by courseId
+  const isValid = mongoose.Types.ObjectId.isValid(req.params.courseId)
+  if(!isValid){
+    return res.status(403).json({success: false, message: "Invalid courseId"})
+  }
+
   const course = await Course.findById(req.params.courseId)
-  console.log(req.params.courseId)
   if (course){
     res.status(200).json({success: true, message : "Course fetched successfully", course})
   }else{
@@ -209,6 +219,10 @@ app.get('/users/courses',authenticateJWTUser,async (req, res) => {
 
 app.post('/users/courses/:courseId', authenticateJWTUser,async (req, res) => {
   // logic to purchase a course
+  const isValid = mongoose.Types.ObjectId.isValid(req.params.courseId)
+  if(!isValid){
+    return res.status(403).json({success: false, message: "Invalid courseId"})
+  }
   const course = await Course.findById(req.params.courseId);
   if(course){
     const user = await User.findOne({username : req.user.username})
