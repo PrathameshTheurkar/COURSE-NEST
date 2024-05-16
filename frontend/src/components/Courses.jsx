@@ -1,5 +1,5 @@
-import { Card, Typography } from "@mui/material"
 import { useEffect, useState } from "react"
+import CourseCard from "./CourseCard"
 
 function Courses(){
     const [courses , setCourses] = useState([])
@@ -29,17 +29,7 @@ function Courses(){
     
     {courses.map(course =>{
         // eslint-disable-next-line react/jsx-key
-        return <Card
-            style={{
-                margin : 10,
-                width : 280,
-                minHeight : 200
-            }}
-        >
-           <Typography textAlign="center" variant="h5">{course.title}</Typography>
-           <Typography textAlign="center" variant="subtitle1">{course.description}</Typography>
-           <img src={course.imageLink} style={{width : 300, height: 200}} alt="imageLink"></img>
-        </Card>
+        return <CourseCard course={course}/>
     })}
     
     </div>

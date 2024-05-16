@@ -141,8 +141,8 @@ app.post('/admin/courses', authenticateJWTAdmin , async (req, res) => {
   // }
 });
 
-app.put('/admin/courses/:courseId' , authenticateJWTAdmin,async (req, res) => {
-  // logic to edit a course
+app.put('/admin/course/:courseId' , authenticateJWTAdmin,async (req, res) => {
+  // logic to update a course
   const isValid = mongoose.Types.ObjectId.isValid(req.params.courseId)
   if(!isValid){
     return res.status(403).json({success: false, message: "Invalid courseId"})
