@@ -13,6 +13,7 @@ app.use('/admin', adminRouter)
 app.use('/users', userRouter)
 
 
+
 // Connect to MongoDB
 // mongoose.connect('mongodb+srv://prathameshtheurkar037:Prathamesh%401@cluster0.s8asa1j.mongodb.net/' ,  { useNewUrlParser: true, useUnifiedTopology: true, dbName: "course-selling-app" })
 mongoose.connect('mongodb+srv://prathameshtheurkar037:Prathamesh%401@cluster0.s8asa1j.mongodb.net/' ,  { dbName: "course-selling-app" })
