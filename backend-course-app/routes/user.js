@@ -18,7 +18,7 @@ router.post('/signup', async (req, res) => {
       await newUser.save()
       token = generateTokenUser(req.body)
     
-      res.status(200).json({message : "User created successfully" , token1 : token})
+      res.status(200).cookie("token", token, {expire : 24 * 60 * 60 * 1000}).json({message : "User created successfully" , token1 : token})
     }
     
   
@@ -31,7 +31,7 @@ router.post('/signup', async (req, res) => {
     const user1 = await User.findOne({username, password})
     if(user1){
       token = generateTokenUser(user1)
-      res.json({message : "Login Succesfully" , token1 : token})
+      res.cookie("token", token, {expire : 24 * 60 * 60 * 1000}).json({message : "Login Succesfully" , token1 : token})
     }else{
       res.status(403).json({message : 'User not found'})
     }

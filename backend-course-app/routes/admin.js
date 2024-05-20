@@ -20,6 +20,7 @@ router.post('/signup', async (req, res) => {
       await newAdmin.save()
       token = generateTokenAdmin(req.body)
       res.json({ success : true,message: 'Admin created successfully'  , token1 : token});
+    //   res.cookie("token", token, {expire : 24 * 60 * 60 * 1000 }).json({ success : true,message: 'Admin created successfully'  , token1 : token});
     }
   });
   
@@ -31,6 +32,7 @@ router.post('/signup', async (req, res) => {
     if(admin){
       token = generateTokenAdmin(admin)
       res.json({success : true, message : 'Login Successfully' , token1 : token})
+    //   res.cookie("token", token, {expire : 24 * 60 * 60 * 1000 }).json({success : true, message : 'Login Successfully' , token1 : token})
     }else{
      res.status(403).json({success : false ,message : 'Admin Authentication failed'})
     }

@@ -9,10 +9,12 @@ const generateTokenUser = (user)=>{
 }
 
 const authenticateJWTUser = (req,res,next)=>{
-  const authHeader = req.headers.authorization
+//   const authHeader = req.headers.authorization
 
-  if(authHeader){
-    const token = authHeader.split(' ')[1]
+//   if(authHeader){
+//     const token = authHeader.split(' ')[1]
+
+    const token = req.cookies.token
 
     jwt.verify(token , secretKeyUser , (err ,user)=>{
       if(err){
@@ -22,9 +24,9 @@ const authenticateJWTUser = (req,res,next)=>{
       req.user = user;
       next()
     })
-  }else{
-    res.sendStatus(401)
-  }
+//   }else{
+//     res.sendStatus(401)
+//   }
 
 }
 
