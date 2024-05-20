@@ -1,12 +1,19 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
+
+import  {useSetRecoilState}  from "recoil"
 import CourseCard from "./CourseCard"
 import UpdateCourse from "./UpdateCourse"
+import  courseState from "../recoil/atom/courseAtom.js"
+
+
 
 function Course(){
     let {courseId} = useParams()
 
-    const [course , setCourse] = useState({})
+    // const [course , setCourse] = useState({})
+
+    const setCourse = useSetRecoilState(courseState)
     const [success , setSuccess] = useState(false)
     const [msg, setMsg] = useState('')
 
@@ -47,8 +54,8 @@ function Course(){
         flexDirection : "column"
     }}
     >
-        <CourseCard course={course}/>
-        <UpdateCourse courseId={courseId} setCourse={setCourse}/>
+        <CourseCard/>
+        <UpdateCourse courseId={courseId} />
     </div>
 
 }

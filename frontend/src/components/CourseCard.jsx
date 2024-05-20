@@ -1,7 +1,17 @@
 /* eslint-disable react/prop-types */
 import { Card, Typography } from "@mui/material"
+import { useRecoilValue }  from "recoil"
+import  courseState  from "../recoil/atom/courseAtom.js"
 
-function CourseCard({course}){
+
+function CourseCard(){
+
+    const course = useRecoilValue(courseState)
+
+    if (!course) {
+        return <div>No course data available</div>;
+    }
+
     return <Card
     style={{
         margin : 10,

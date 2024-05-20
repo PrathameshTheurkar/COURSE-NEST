@@ -1,9 +1,14 @@
 /* eslint-disable react/prop-types */
 import { Button, Card, TextField} from "@mui/material"
 import { useState } from "react"
+import { useSetRecoilState } from "recoil"
+import courseState  from "../recoil/atom/courseAtom.js"
+
 // import { useParams } from "react-router-dom"
 
-function UpdateCourse({courseId, setCourse}){
+function UpdateCourse({courseId}){
+
+    const setCourse = useSetRecoilState(courseState)
     const [title , setTitle] = useState("")
     const [description, setDescription] = useState("")
     const [image, setImage] = useState("")
