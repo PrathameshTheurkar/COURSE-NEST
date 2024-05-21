@@ -77,7 +77,7 @@ function SignIn(){
                         if(res.success){
                             localStorage.setItem('token' , res.token1)
                             // navigate('/addcourse')
-                            window.location= "/addcourse"
+                            window.location= "/courses"
                         }
                     })
                 }}

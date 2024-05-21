@@ -1,6 +1,6 @@
 import { Button, Typography } from "@mui/material"
 import { useEffect, useState } from "react"
-import { useNavigate } from "react-router-dom"
+import { NavLink, useNavigate } from "react-router-dom"
 
 
 function Appbar(){
@@ -34,7 +34,8 @@ function Appbar(){
           display : "flex",
           justifyContent : "space-between",
           padding : "10px",
-          paddingRight : "30px"
+          paddingRight : "30px",
+          marginBottom : 50,
         }}
         >
              <Typography
@@ -43,7 +44,54 @@ function Appbar(){
             Course App
             </Typography>
       
-            
+            <div
+            style={{
+              display : "flex",
+              gap : 20,
+            }}
+            >
+            <NavLink
+            to='/courses'
+            style={({isActive})=>{
+              return isActive ? {color : '#1976d2', textDecoration : 'none'} : {color : 'black',  textDecoration : 'none'}
+            }}
+            >
+            <Typography
+            variant="h6"
+            //  color = {"#1976d2"}
+            // color = {'black'}
+             style={{
+              display : 'flex',
+              justifyContent : 'center',
+              alignItems : 'center',
+              marginRight : 10
+             }}
+            >
+              Courses
+            </Typography>
+            </NavLink>
+
+            <NavLink
+            to = '/addcourse'
+            style={({isActive})=>{
+              return isActive ? {color : '#1976d2', textDecoration : 'none'} : {color : 'black',  textDecoration : 'none'}
+            }}
+            >
+            <Typography
+            variant="h6"
+            //  color = {"#1976d2"}
+            // color = {'black'}
+             style={{
+              display : 'flex',
+              justifyContent : 'center',
+              alignItems : 'center',
+              marginRight : 10,
+             }}
+            >
+              Add Course
+            </Typography>
+            </NavLink>
+            </div>
       
             <div
             style={{

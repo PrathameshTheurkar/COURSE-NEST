@@ -74,7 +74,7 @@ function SignUp(){
                     .then(res =>{
                         if(res.success){
                             localStorage.setItem('token' , res.token1)
-                            navigate('/addcourse')
+                            navigate('/courses')
                         }
                     })
                 }}
