@@ -1,11 +1,11 @@
 import Appbar from "./components/Appbar"
-import SignIn from "./components/SignIn"
+import SignIn from "./pages/SignIn"
 import { RecoilRoot } from 'recoil'
 import {Routes, Route, BrowserRouter } from "react-router-dom";
-import SignUp from "./components/SignUp";
-import AddCourse from "./components/AddCourse";
-import Courses from "./components/Courses";
-import Course from "./components/Course";
+import SignUp from "./pages/SignUp";
+import AddCourse from "./pages/AddCourse";
+import Courses from "./pages/Courses";
+import Course from "./pages/Course";
 
 function App(){
   return <div

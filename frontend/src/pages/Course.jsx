@@ -2,8 +2,8 @@ import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 
 import  {useSetRecoilState}  from "recoil"
-import CourseCard from "./CourseCard"
-import UpdateCourse from "./UpdateCourse"
+import CourseCard from "../components/CourseCard.jsx"
+import UpdateCourse from "../components/UpdateCourse.jsx"
 import  courseState from "../recoil/atom/courseAtom.js"
 
 
