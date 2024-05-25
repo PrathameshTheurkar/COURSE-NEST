@@ -1,9 +1,8 @@
 import { Card, TextField , Button, Typography} from "@mui/material"
+import axios from "axios"
 import { useState } from "react"
-import { useNavigate } from "react-router-dom"
 
 function SignUp(){
-    const navigate = useNavigate()
 
     const [username , setUsername] = useState("")
     const [password , setPassword] = useState("")
@@ -58,25 +57,17 @@ function SignUp(){
             <Button
                 variant="contained"
                 size="large"
-                onClick={()=>{
-                    fetch('http://localhost:3000/admin/signup' , {
-                        method : "POST",
-                        body : JSON.stringify({
-                            username : username,
-                            password : password,
+                onClick={async()=>{
+                   
+                    const {data} = await axios.post('http://localhost:3000/admin/signup',{
+                        username,
+                        password
+                    })
 
-                        }),
-                        headers : {
-                            "Content-Type" : "application/json"
-                        }
-                    })
-                    .then(res => res.json())
-                    .then(res =>{
-                        if(res.success){
-                            localStorage.setItem('token' , res.token1)
-                            navigate('/courses')
-                        }
-                    })
+                    if (data.success){
+                        localStorage.setItem('token', data.token1)
+                        window.location = '/courses'
+                    }
                 }}
             >SignUp
             </Button>

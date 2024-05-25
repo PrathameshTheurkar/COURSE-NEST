@@ -1,6 +1,7 @@
 import { Button, Typography } from "@mui/material"
 import { useEffect, useState } from "react"
 import { NavLink, useNavigate } from "react-router-dom"
+import axios from 'axios'
 
 
 function Appbar(){
@@ -9,23 +10,22 @@ function Appbar(){
     const [auth , setAuth] = useState(false)
     const [user, setUser] = useState(null)
 
+    const fetchMe = async() => {
+       const {data} = await axios.get('http://localhost:3000/admin/me',{
+        headers: {
+          "Content-Type" : "application/json",
+          "Authorization" : "Bearer "+localStorage.getItem('token')
+        }
+       })
+
+       if (data.auth) {
+        setAuth(data.auth)
+        setUser(data.user.username)
+       }
+    }
+
     useEffect(()=>{
-        fetch('http://localhost:3000/admin/me',{
-            method : "GET",
-            headers : {
-                "Content-Type" : "application/json",
-                "Authorization" : "Bearer "+localStorage.getItem('token')
-            }
-        })
-        .then(res => res.json())
-        .then(res => {
-            if(res.auth){
-                console.log(res.user , res.success)
-                setAuth(res.auth)
-                setUser(res.user.username)
-                console.log(user, auth)
-            }
-        })
+        fetchMe()
     },[auth, user])
 
     if(auth == true){

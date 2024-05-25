@@ -1,7 +1,7 @@
 import { Card, TextField , Button, Typography} from "@mui/material"
 import axios from "axios"
 import { useState } from "react"
-import toast from 'react-hot-toast'
+// import toast from 'react-hot-toast'
 // import { useNavigate } from "react-router-dom"
 
 function SignIn(){
@@ -72,7 +72,7 @@ function SignIn(){
                         localStorage.setItem('token', data.token1)
                         window.location = '/courses'
                     }
-                    toast.success(data.message)
+                    // toast.success(data.message)
                 }}
             >SignIn
             </Button>

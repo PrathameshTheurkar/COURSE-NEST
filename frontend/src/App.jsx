@@ -6,7 +6,7 @@ import SignUp from "./pages/SignUp";
 import AddCourse from "./pages/AddCourse";
 import Courses from "./pages/Courses";
 import Course from "./pages/Course";
-import { Toaster } from "react-hot-toast";
+// import { Toaster } from "react-hot-toast";
 
 function App(){
   return <div
@@ -27,7 +27,7 @@ function App(){
           <Route path="/course/:courseId" element={<Course/>}></Route>
         </Route>
       </Routes>
-    <Toaster/>
+    {/* <Toaster/> */}
   </BrowserRouter>
  </RecoilRoot>
   </div> 

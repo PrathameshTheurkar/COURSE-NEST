@@ -3,6 +3,7 @@ import { Button, Card, TextField} from "@mui/material"
 import { useState } from "react"
 import { useSetRecoilState } from "recoil"
 import courseState  from "../recoil/atom/courseAtom.js"
+import axios from "axios"
 
 // import { useParams } from "react-router-dom"
 
@@ -56,32 +57,28 @@ function UpdateCourse({courseId}){
         <Button
         variant="contained"
         size = "large"
-        onClick={()=>{
-            fetch('http://localhost:3000/admin/course/' + courseId , {
-                    method : "PUT",
-                    body : JSON.stringify({
-                        title : title,
-                        description: description,
-                        price : 100,
-                        imageLink : image,
-                        published : true
-
-                    }),
-                    headers : {
+        onClick={async()=>{
+            
+                const {data} = await axios.put('http://localhost:3000/admin/course/' + courseId,{
+                    title,
+                    description,
+                    price: 100,
+                    image,
+                    published: true
+                },{
+                    headers: {
                         "Content-Type" : "application/json",
                         "Authorization" : "Bearer "+localStorage.getItem('token')
                     }
                 })
-                .then(res => res.json())
-                .then(res =>{
-                    if(res.success){
-                        setCourse({
-                            title : title,
-                            description : description,
-                            imageLink : image
-                        })
-                    }
-                })
+
+                if (data.success){
+                    setCourse({
+                        title : title,
+                        description : description,
+                        imageLink : image
+                    })
+                }
         }}
         >Update</Button>
     </Card>

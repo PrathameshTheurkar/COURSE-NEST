@@ -1,23 +1,23 @@
 import { useEffect, useState } from "react"
 // import CourseCard from "./CourseCard"
 import { Card, Typography } from "@mui/material"
+import axios from 'axios'
 
 function Courses(){
     const [courses , setCourses] = useState([])
+
+    const fetchCourses = async()=>{
+        const {data} = await axios.get('http://localhost:3000/admin/courses',{
+        headers : {
+            "Content-Type" : "application/json",
+            "Authorization" : "Bearer "+ localStorage.getItem('token')    
+        }
+        })
+        setCourses(data)
+    }
     
     useEffect(()=>{
-        fetch('http://localhost:3000/admin/courses' , {
-                        method : "GET",
-                        headers : {
-                            "Content-Type" : "application/json",
-                            "Authorization" : "Bearer "+ localStorage.getItem('token')
-                        }
-        })
-        .then(res => res.json())
-        .then(res => {
-            // console.log(res)
-            setCourses(res)
-        })
+        fetchCourses()
         
     },[])
     return <div 

@@ -5,6 +5,7 @@ import  {useSetRecoilState}  from "recoil"
 import CourseCard from "../components/CourseCard.jsx"
 import UpdateCourse from "../components/UpdateCourse.jsx"
 import  courseState from "../recoil/atom/courseAtom.js"
+import axios from 'axios'
 
 
 
@@ -17,22 +18,22 @@ function Course(){
     const [success , setSuccess] = useState(false)
     const [msg, setMsg] = useState('')
 
-    useEffect(()=>{
-        fetch('http://localhost:3000/admin/course/' + courseId, {
-            method : "GET",
-            headers : {
+    const fetchCourse = async () => {
+        const {data} = await axios.get('http://localhost:3000/admin/course/' + courseId, {
+            headers: {
                 "Content-Type" : "application/json",
                 "Authorization" : "Bearer " + localStorage.getItem('token')
             }
         })
-        .then(res => res.json())
-        .then(res => {
-            if(res.success){
-                setCourse(res.course)
-                setSuccess(true)
-            }
-            setMsg(res.message)
-        })
+        if (data.success){
+            setCourse(data.course)
+            setSuccess(true)
+        }
+        setMsg(data.message)
+    }
+    
+    useEffect(()=>{
+        fetchCourse()
     },[])
 
 

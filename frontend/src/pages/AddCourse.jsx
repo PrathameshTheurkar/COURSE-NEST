@@ -1,4 +1,5 @@
 import { Button, Card, TextField, Typography } from "@mui/material"
+import axios from "axios"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 
@@ -65,28 +66,23 @@ function AddCourse(){
             <Button
             variant="contained"
             size = "large"
-            onClick={()=>{
-                fetch('http://localhost:3000/admin/courses' , {
-                        method : "POST",
-                        body : JSON.stringify({
-                            title : title,
-                            description: description,
-                            imageLink : image,
-                            published : true
-
-                        }),
+            onClick={async()=>{
+                
+                    const {data} = await axios.post('http://localhost:3000/admin/courses', {
+                        title,
+                        description,
+                        image,
+                        published: true
+                    },{
                         headers : {
                             "Content-Type" : "application/json",
                             "Authorization" : "Bearer "+localStorage.getItem('token')
                         }
                     })
-                    .then(res => res.json())
-                    .then(res =>{
-                        if(res.success){
-                            navigate('/courses')
-                            // window.location= "/courses"
-                        }
-                    })
+
+                    if (data.success){
+                        navigate('/courses')
+                    }
             }}
             >Add</Button>
         </Card>
