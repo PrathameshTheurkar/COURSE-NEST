@@ -1,5 +1,7 @@
 import { Card, TextField , Button, Typography} from "@mui/material"
+import axios from "axios"
 import { useState } from "react"
+import toast from 'react-hot-toast'
 // import { useNavigate } from "react-router-dom"
 
 function SignIn(){
@@ -60,26 +62,17 @@ function SignIn(){
             <Button
                 variant="contained"
                 size="large"
-                onClick={()=>{
-                    fetch('http://localhost:3000/admin/login' , {
-                        method : "POST",
-                        body : JSON.stringify({
-                            username : username,
-                            password : password,
+                onClick={async()=>{
 
-                        }),
-                        headers : {
-                            "Content-Type" : "application/json"
-                        }
+                    const {data} = await axios.post('http://localhost:3000/admin/login',{
+                        username,
+                        password
                     })
-                    .then(res => res.json())
-                    .then(res =>{
-                        if(res.success){
-                            localStorage.setItem('token' , res.token1)
-                            // navigate('/addcourse')
-                            window.location= "/courses"
-                        }
-                    })
+                    if (data.success){
+                        localStorage.setItem('token', data.token1)
+                        window.location = '/courses'
+                    }
+                    toast.success(data.message)
                 }}
             >SignIn
             </Button>

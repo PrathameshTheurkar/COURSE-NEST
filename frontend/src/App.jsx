@@ -6,6 +6,7 @@ import SignUp from "./pages/SignUp";
 import AddCourse from "./pages/AddCourse";
 import Courses from "./pages/Courses";
 import Course from "./pages/Course";
+import { Toaster } from "react-hot-toast";
 
 function App(){
   return <div
@@ -16,7 +17,7 @@ function App(){
   >
 <RecoilRoot>
   <BrowserRouter>
-  <Appbar/>
+    <Appbar/>
       <Routes>
         <Route path="/">
           <Route path="/signin" element ={<SignIn/>}></Route>
@@ -26,6 +27,7 @@ function App(){
           <Route path="/course/:courseId" element={<Course/>}></Route>
         </Route>
       </Routes>
+    <Toaster/>
   </BrowserRouter>
  </RecoilRoot>
   </div> 
