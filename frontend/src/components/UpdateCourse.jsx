@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { Button, Card, TextField} from "@mui/material"
 import { useState } from "react"
-import { useSetRecoilState } from "recoil"
+import { useRecoilValue, useSetRecoilState } from "recoil"
 import courseState  from "../recoil/atom/courseAtom.js"
 import axios from "axios"
 
@@ -10,9 +10,10 @@ import axios from "axios"
 function UpdateCourse({courseId}){
 
     const setCourse = useSetRecoilState(courseState)
-    const [title , setTitle] = useState("")
-    const [description, setDescription] = useState("")
-    const [image, setImage] = useState("")
+    const course = useRecoilValue(courseState)
+    const [title , setTitle] = useState(course.title)
+    const [description, setDescription] = useState(course.description)
+    const [image, setImage] = useState(course.imageLink)
 
     return <Card
     variant="outlined"
@@ -28,9 +29,12 @@ function UpdateCourse({courseId}){
             setTitle(e.target.value)
         }}
         label = "Title"
+        value={title}
         >
         </TextField>
+        
         <br /> <br />            
+        
         <TextField
         variant="outlined"
         fullWidth = {true}
@@ -38,6 +42,7 @@ function UpdateCourse({courseId}){
             setDescription(e.target.value)
         }}
         label = "Description"
+        value = {description}
         >
         </TextField>
         
@@ -50,10 +55,12 @@ function UpdateCourse({courseId}){
             setImage(e.target.value)
         }}
         label = "Image Link"
+        value = {image}
         >
         </TextField>
 
         <br /><br />
+        
         <Button
         variant="contained"
         size = "large"

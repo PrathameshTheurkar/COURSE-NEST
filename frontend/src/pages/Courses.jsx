@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react"
 // import CourseCard from "./CourseCard"
-import { Card, Typography } from "@mui/material"
+import { Button, Card, Typography } from "@mui/material"
 import axios from 'axios'
+import { useNavigate } from "react-router-dom"
 
 function Courses(){
     const [courses , setCourses] = useState([])
+    const navigate = useNavigate()
 
     const fetchCourses = async()=>{
         const {data} = await axios.get('http://localhost:3000/admin/courses',{
@@ -17,9 +19,9 @@ function Courses(){
     }
     
     useEffect(()=>{
-        fetchCourses()
-        
+        fetchCourses()        
     },[])
+    
     return <div 
     style ={{
         display : "flex",
@@ -34,12 +36,15 @@ function Courses(){
         style={{
             margin : 10,
             width : 280,
-            minHeight : 200
+            minHeight : 200,
         }}
     >
        <Typography textAlign="center" variant="h5">{course.title}</Typography>
        <Typography textAlign="center" variant="subtitle1">{course.description}</Typography>
        <img src={course.imageLink} style={{width : 300, height: 200}} alt="imageLink"></img>
+       <div style={{display: 'flex', justifyContent: 'center', marginTop: 20}}>
+       <Button variant="contained" onClick={()=>{navigate(`/course/${course._id}`)}}>Edit</Button>
+       </div>
     </Card>
     })}
     
