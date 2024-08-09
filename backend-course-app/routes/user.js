@@ -18,7 +18,7 @@ router.post('/signup', async (req, res) => {
       await newUser.save()
       token = generateTokenUser(req.body)
     
-      res.status(200).cookie("token", token, {expire : 24 * 60 * 60 * 1000}).json({message : "User created successfully" , token1 : token})
+      res.status(200).cookie("token", token, {expire : 24 * 60 * 60 * 1000}).json({message : "User created successfully" , token})
     }
     
   
@@ -38,7 +38,7 @@ router.post('/signup', async (req, res) => {
    
   });
   
-  router.get('/courses',authenticateJWTUser,async (req, res) => {
+  router.get('/courses', authenticateJWTUser, async (req, res) => {
     // logic to list all courses
     const courses = await Course.find({published : true})
     res.json({courses})
@@ -73,7 +73,7 @@ router.post('/signup', async (req, res) => {
     }
   });
   
-  router.get('/purchasedCourses',authenticateJWTUser, async (req, res) => {
+  router.get('/purchasedCourses', authenticateJWTUser, async (req, res) => {
     // logic to view purchased courses
     const user = await User.findOne({username : req.user.username}).populate('purchasedCourses')
     if(user){

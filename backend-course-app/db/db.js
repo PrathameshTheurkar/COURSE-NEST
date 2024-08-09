@@ -2,14 +2,32 @@ const mongoose = require('mongoose')
 
 // Define mongoose Schema 
 const userSchema = new mongoose.Schema({
-    username : String,
-    password : String ,
+    username: {
+      type: String,
+      required: true
+    },
+    password: {
+      type: String,
+      required: true
+    },
     purchasedCourses : [{type : mongoose.Schema.Types.ObjectId , ref : 'Course'}]
   })
   
   const adminSchema = new mongoose.Schema({
-    username : String,
-    password : String
+    firstName: {
+      type: String
+    },
+    lastName: {
+      type: String
+    },
+    username: {
+      type: String,
+      required: true
+    },
+    password: {
+      type: String,
+      required: true
+    }
   })
   
   const courseSchema = new mongoose.Schema({

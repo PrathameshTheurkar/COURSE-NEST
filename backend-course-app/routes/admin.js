@@ -11,15 +11,16 @@ router.post('/signup', async (req, res) => {
     // logic to sign up admin
     let username = req.body.username;
     let password = req.body.password;
+    const {firstName, lastName} = req.body
   
     admin = await Admin.findOne({username, password})
     if(admin){
       res.status(403).json({success : false,massage : 'Admin already exits'});
     }else{
-      const newAdmin = new Admin({username , password})
+      const newAdmin = new Admin({firstName, lastName, username , password})
       await newAdmin.save()
       token = generateTokenAdmin(req.body)
-      res.json({ success : true,message: 'Admin created successfully'  , token1 : token});
+      res.json({ success : true, message: 'Admin created successfully'  , token : token});
     //   res.cookie("token", token, {expire : 24 * 60 * 60 * 1000 }).json({ success : true,message: 'Admin created successfully'  , token1 : token});
     }
   });
@@ -94,6 +95,18 @@ router.post('/signup', async (req, res) => {
     const courses = await Course.find({})
     res.json(courses);
   });
+
+  router.delete('/course/:courseId', authenticateJWTAdmin, async(req, res)=>{
+    const {courseId} = req.params
+    const courseExist = await Course.findById(courseId)
+
+    if(courseExist){
+      const course = await Course.findByIdAndDelete(courseId)
+      res.status(200).json({success: true, msg: 'Course Deleted Successfully', course})
+    }else{
+      res.json({success: false, msg: 'Course does not exist'})
+    }
+  })
 
 
   module.exports = router
