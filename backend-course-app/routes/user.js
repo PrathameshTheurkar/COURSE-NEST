@@ -8,17 +8,18 @@ const router = express.Router()
 // User routes
 router.post('/signup', async (req, res) => {
     // logic to sign up user
-    let {username , password} = req.body;
+    let {username , password, firstName, lastName} = req.body;
     const existingUser =await User.findOne({username , password})
   
     if(existingUser){
-      res.json({message : "User already signed up"})
+      res.json({success: false, message : "User already signed up"})
     }else{
-      const newUser = new User({username , password ,purchasedCourses : []})
+      const newUser = new User({firstName, lastName, username , password ,purchasedCourses : []})
       await newUser.save()
       token = generateTokenUser(req.body)
     
-      res.status(200).cookie("token", token, {expire : 24 * 60 * 60 * 1000}).json({message : "User created successfully" , token})
+      // res.status(200).cookie("token", token, {expire : 24 * 60 * 60 * 1000}).json({message : "User created successfully" , token})
+      res.status(200).json({success: true, message : "User created successfully" , token})
     }
     
   
@@ -26,14 +27,14 @@ router.post('/signup', async (req, res) => {
   
   router.post('/login',async (req, res) => {
     // logic to log in user
-    // res.json({message : "Login Succesfully" , users : USERS})
-    const {username , password} = req.headers;
+    const {username , password} = req.body;
     const user1 = await User.findOne({username, password})
     if(user1){
       token = generateTokenUser(user1)
-      res.cookie("token", token, {expire : 24 * 60 * 60 * 1000}).json({message : "Login Succesfully" , token1 : token})
+      // res.cookie("token", token, {expire : 24 * 60 * 60 * 1000}).json({message : "Login Succesfully" , token1 : token})
+      res.status(200).json({success: true, message : "Login Succesfully" , token})
     }else{
-      res.status(403).json({message : 'User not found'})
+      res.status(403).json({success: false, message : 'User not found'})
     }
    
   });
