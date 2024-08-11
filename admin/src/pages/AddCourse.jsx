@@ -1,10 +1,10 @@
 import { Button, Card, TextField, Typography } from "@mui/material"
 import axios from "axios"
 import { useState } from "react"
-import { useNavigate } from "react-router-dom"
+import toast from 'react-hot-toast'
+
 
 function AddCourse(){
-    const navigate = useNavigate()
     const [title , setTitle] = useState("")
     const [description, setDescription] = useState("")
     const [imageLink, setImageLink] = useState("")
@@ -82,7 +82,7 @@ function AddCourse(){
                     })
 
                     if (data.success){
-                        navigate('/courses')
+                        toast.success('Course Added Successfully')
                     }
             }}
             >Add</Button>

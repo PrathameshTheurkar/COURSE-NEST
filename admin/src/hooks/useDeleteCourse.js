@@ -1,6 +1,8 @@
 import {useParams} from 'react-router-dom'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import toast from 'react-hot-toast'
+
 
 export const useDeleteCourse = () => {
     let {courseId} = useParams()
@@ -15,6 +17,7 @@ export const useDeleteCourse = () => {
         })
 
         if(data.success){
+            toast.success('Course Deleted Successfully')
             navigate('/courses')
         }
     }

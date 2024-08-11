@@ -18,6 +18,9 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useNavigate } from 'react-router-dom';
 import { Menu, MenuItem } from '@mui/material';
 import axios from 'axios';
+import LogoutIcon from '@mui/icons-material/Logout';
+import toast from 'react-hot-toast'
+
 
 const drawerWidth = 240;
 
@@ -111,18 +114,18 @@ const  Appbar = (props) =>  {
           </Typography>
           
           <Box component='main' sx={{ mr: {sm: 4}, display: { xs: 'none', sm: 'block' } }}>
-              <Button onClick={()=> {navigate('/courses')}} sx={{ color: '#000' }}>
+              <Button onClick={()=> {navigate('/courses')}} sx={{ color: '#fff' }}>
                 Courses
               </Button>
 
-              <Button onClick={()=> navigate('/addcourse')} sx={{ color: '#000' }}>
+              <Button onClick={()=> navigate('/addcourse')} sx={{ color: '#fff' }}>
                 Add Course
               </Button>
           </Box>
 
           <Box sx={{display: 'flex', alignItems: 'center'}}>
           <IconButton onClick={handleMenu}>
-          <AccountCircleIcon />
+          <AccountCircleIcon sx={{color: 'white'}}/>
           </IconButton>
 
           <Menu
@@ -144,8 +147,11 @@ const  Appbar = (props) =>  {
                 <MenuItem onClick={()=>{
                   handleClose()
                   localStorage.setItem('token', null)
+                  toast.success('Logout Successfully')
                   navigate('/login')
-                }}>Logout</MenuItem>
+                }}
+                className='flex gap-x-2'
+                >Logout<LogoutIcon /> </MenuItem>
               </Menu>
           </Box>
           </div>

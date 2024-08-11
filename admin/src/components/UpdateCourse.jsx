@@ -5,6 +5,7 @@ import courseState  from "../recoil/atom/courseAtom.js"
 import axios from "axios"
 import DeleteCourse from "./DeleteCourse.jsx"
 import PropTypes from 'prop-types';
+import toast from 'react-hot-toast'
 
 // import { useParams } from "react-router-dom"
 
@@ -87,6 +88,8 @@ function UpdateCourse({courseId}){
                         description : description,
                         imageLink : image
                     })
+                    toast.success('Course Updated Successfully')
+
                 }
         }}
         >Update</Button>

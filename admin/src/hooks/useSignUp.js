@@ -1,4 +1,5 @@
 import axios from "axios"
+import toast from "react-hot-toast"
 import { useNavigate } from "react-router-dom"
 
 export const useSignUp = () => {
@@ -17,6 +18,7 @@ export const useSignUp = () => {
 
         if(data.success){
             localStorage.setItem('token', data.token)
+            toast.success('Successfully Signup')
             navigate('/courses')
         }
     }   

@@ -35,7 +35,7 @@ router.post('/signup', async (req, res) => {
       res.json({success : true, message : 'Login Successfully' , token1 : token})
     //   res.cookie("token", token, {expire : 24 * 60 * 60 * 1000 }).json({success : true, message : 'Login Successfully' , token1 : token})
     }else{
-     res.status(403).json({success : false ,message : 'Admin Authentication failed'})
+     res.json({success : false ,message : 'Admin Authentication failed'})
     }
   });
   

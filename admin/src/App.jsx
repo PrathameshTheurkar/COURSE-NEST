@@ -7,6 +7,7 @@ import AddCourse from './pages/AddCourse'
 import Courses from './pages/Courses'
 import Layout from './Layout'
 import Course from './pages/Course'
+import { Toaster } from 'react-hot-toast'
 
 
 const App = () => {
@@ -28,7 +29,8 @@ const App = () => {
         <Route path='/signup'element={<SignUp />} /> 
       </Routes>
     </BrowserRouter>
-    </RecoilRoot>
+    </RecoilRoot> 
+    <Toaster position='top-center'/> 
     </div>
   )
 }
