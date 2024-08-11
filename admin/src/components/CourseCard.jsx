@@ -6,7 +6,6 @@ import { CardActionArea, Divider } from '@mui/material';
 import courseState from "../recoil/atom/courseAtom"
 import { useRecoilValue }  from "recoil"
 
-// eslint-disable-next-line react/prop-types
 export default function CourseCard() {
   const course = useRecoilValue(courseState)
 
@@ -15,7 +14,7 @@ export default function CourseCard() {
 }
 
   return (
-    <Card variant="outlined" sx={{ width: 300, height: 300, margin: 3, boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px" }}>
+    <Card variant="outlined" sx={{ width: 300, height: 'auto', margin: 3, boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px" }}>
       <CardActionArea>
         {/* <CardMedia
           component="img"

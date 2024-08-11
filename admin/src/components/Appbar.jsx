@@ -17,7 +17,6 @@ import Button from '@mui/material/Button';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useNavigate } from 'react-router-dom';
 import { Menu, MenuItem } from '@mui/material';
-import { useAuth } from '../hooks/useAuth';
 import axios from 'axios';
 
 const drawerWidth = 240;

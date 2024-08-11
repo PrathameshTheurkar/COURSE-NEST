@@ -1,10 +1,10 @@
-/* eslint-disable react/prop-types */
 import { Button, Card, TextField} from "@mui/material"
 import { useState } from "react"
 import { useRecoilValue, useSetRecoilState } from "recoil"
 import courseState  from "../recoil/atom/courseAtom.js"
 import axios from "axios"
 import DeleteCourse from "./DeleteCourse.jsx"
+import PropTypes from 'prop-types';
 
 // import { useParams } from "react-router-dom"
 
@@ -94,5 +94,10 @@ function UpdateCourse({courseId}){
     </Card>
 
 }
+
+UpdateCourse.propTypes = {
+    courseId: PropTypes.string.isRequired
+}
+
 
 export default UpdateCourse
