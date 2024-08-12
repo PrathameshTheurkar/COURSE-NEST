@@ -27,6 +27,7 @@ router.post('/signup', async (req, res) => {
   
   router.post('/login', async (req, res) => {
     // logic to log in admin
+    console.log(process.env.SECRET_KEY_ADMIN)
     let {username , password} = req.body;
     admin = await Admin.findOne({username , password})
   

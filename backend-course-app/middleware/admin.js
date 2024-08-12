@@ -1,11 +1,11 @@
 const jwt = require('jsonwebtoken')
 
 
-const secretKeyAdmin = "superSc3r3t1"
+// const secretKeyAdmin = process.env.SECRET_KEY_ADMIN
 
 const generateTokenAdmin = (user)=>{
   payload = {username : user.username}
-  return jwt.sign(payload , secretKeyAdmin , {expiresIn : '1h'})
+  return jwt.sign(payload , process.env.SECRET_KEY_ADMIN , {expiresIn : '1h'})
 }
 
 const authenticateJWTAdmin = (req,res,next)=>{
@@ -13,7 +13,7 @@ const authenticateJWTAdmin = (req,res,next)=>{
   if(authHeader){
     const token = authHeader.split(' ')[1]
     // const token  = req.cookies.token
-    jwt.verify(token , secretKeyAdmin , (err , user)=>{
+    jwt.verify(token , process.env.SECRET_KEY_ADMIN , (err , user)=>{
       if(err){
         return res.sendStatus(403);
       }

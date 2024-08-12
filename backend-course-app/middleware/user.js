@@ -1,11 +1,11 @@
 const jwt = require("jsonwebtoken")
 
 
-const secretKeyUser = "superS3cr3t2"
+// const secretKeyUser = process.env.SECRET_KEY_USER
 
 const generateTokenUser = (user)=>{
   payload = {username : user.username}
-  return jwt.sign(payload , secretKeyUser , {expiresIn : '1h'})
+  return jwt.sign(payload , process.env.SECRET_KEY_USER , {expiresIn : '1h'})
 }
 
 const authenticateJWTUser = (req,res,next)=>{
@@ -16,7 +16,7 @@ const authenticateJWTUser = (req,res,next)=>{
 
     const token = req.cookies.token
 
-    jwt.verify(token , secretKeyUser , (err ,user)=>{
+    jwt.verify(token , process.env.SECRET_KEY_USER , (err ,user)=>{
       if(err){
         res.sendStatus(403)
       }
