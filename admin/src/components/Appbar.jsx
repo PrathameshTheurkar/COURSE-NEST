@@ -68,7 +68,7 @@ const  Appbar = (props) =>  {
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
       <Typography variant="h6" sx={{ my: 2 }}>
-      COURSE NEST
+      CourseNest
       </Typography>
       <Divider />
       <List>
@@ -110,7 +110,7 @@ const  Appbar = (props) =>  {
             component="div"
             sx={{ flexGrow: 1, display: 'flex', alignItems: 'center'}}
           >
-            COURSE NEST
+            CourseNest
           </Typography>
           
           <Box component='main' sx={{ mr: {sm: 4}, display: { xs: 'none', sm: 'block' } }}>

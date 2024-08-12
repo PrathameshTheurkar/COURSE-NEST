@@ -86,9 +86,9 @@ function SideDrawer(props) {
           <Typography
             variant="h6"
             component="div"
-            sx={{ flexGrow: 1, display: 'flex', alignItems: 'center'}}
+            sx={{ flexGrow: 1, display: 'flex', alignItems: 'center' }}
           >
-            COURSE NEST
+            CourseNest
           </Typography>
 
           <Box sx={{display: 'flex', alignItems: 'center'}}>
