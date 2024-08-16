@@ -41,9 +41,22 @@ router.post('/signup', async (req, res) => {
   
   router.get('/courses', authenticateJWTUser, async (req, res) => {
     // logic to list all courses
-    const courses = await Course.find({published : true})
-    res.json({courses})
+    const courses = await Course.find()
+    res.json({success: true, courses: courses})
   });
+
+  router.get('/course/:courseId', authenticateJWTUser, async(req, res)=> {
+    //logic to get a single course
+
+    const courseId = req.params.courseId
+
+    const course = await Course.findById(courseId)
+    if(course){
+      res.status(200).json({success: true, msg: 'Course founded', course})
+    }else{
+      res.status(404).json({success: false, msg: 'Course not found'})
+    }
+  })
   
   router.post('/courses/:courseId', authenticateJWTUser, async (req, res) => {
     // logic to purchase a course

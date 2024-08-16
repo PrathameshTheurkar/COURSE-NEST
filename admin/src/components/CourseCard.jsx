@@ -1,8 +1,7 @@
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-// import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { CardActionArea, Divider } from '@mui/material';
+import { CardActionArea } from '@mui/material';
 import courseState from "../recoil/atom/courseAtom"
 import { useRecoilValue }  from "recoil"
 
@@ -14,17 +13,11 @@ export default function CourseCard() {
 }
 
   return (
-    <Card variant="outlined" sx={{ width: 300, height: 'auto', margin: 3, boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px" }}>
+    <Card variant="outlined" sx={{ padding: 2, width: 300, height: 'auto', margin: 3, boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px", borderRadius: 3}}>
       <CardActionArea>
-        {/* <CardMedia
-          component="img"
-          image={imageLink}
-          alt={title + ' image'}
-        />
-        */}
         <img style={{width: 300, height: 180}} src={course.imageLink} alt={course.title + ' image'}/> 
       </CardActionArea>
-      <Divider  />
+      {/* <Divider  /> */}
       <CardContent>
           <Typography gutterBottom variant="h5" component="div">
             {course.title}

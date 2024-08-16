@@ -1,7 +1,7 @@
 import { useEffect } from "react"
 import { useCourses } from "../hooks/useCourses"
 import {Link} from 'react-router-dom'
-import { Card, CardActionArea, CardContent, Divider, Typography } from "@mui/material"
+import { Card, CardActionArea, CardContent, Typography } from "@mui/material"
 
 const Courses = () => {
   const {courses, fetchCourses} = useCourses()
@@ -21,11 +21,10 @@ const Courses = () => {
       {courses.map(course => {
         return <>
        <Link to={`/course/${course._id}`}>
-       <Card variant="outlined" sx={{ width: 300, height: 300, margin: 3, boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px" }}>
+       <Card variant="outlined" sx={{ padding: 2, width: 300, height: 300, margin: 3, boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px", borderRadius: 3  }}>
       <CardActionArea>
         <img style={{width: 300, height: 180}} src={course.imageLink} alt={course.title + ' image'}/> 
       </CardActionArea>
-      <Divider  />
       <CardContent>
           <Typography gutterBottom variant="h5" component="div">
             {course.title}

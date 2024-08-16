@@ -73,7 +73,7 @@ function UpdateCourse({courseId}){
                     title,
                     description,
                     price: 100,
-                    image,
+                    imageLink: image,
                     published: true
                 },{
                     headers: {

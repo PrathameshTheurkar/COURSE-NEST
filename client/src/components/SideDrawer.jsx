@@ -17,9 +17,9 @@ import Typography from '@mui/material/Typography';
 import SchoolIcon from '@mui/icons-material/School';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useNavigate } from 'react-router-dom';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
-
-const drawerWidth = 240;
+const drawerWidth = 270;
 
 function SideDrawer(props) {
   const { window, children } = props;
@@ -53,12 +53,22 @@ function SideDrawer(props) {
         <ListItem>
         <ListItemText primary={'Main Menu'} />
         </ListItem>
+
           <ListItem  disablePadding>
             <ListItemButton onClick={() => navigate('/courses')}>
               <ListItemIcon>
                 <SchoolIcon sx={{color: '#424242'}}/>
               </ListItemIcon>
               <ListItemText primary={'Courses'} />
+            </ListItemButton>
+          </ListItem>
+
+          <ListItem  disablePadding>
+            <ListItemButton onClick={() => navigate('/purcha')}>
+              <ListItemIcon>
+                <ShoppingCartIcon sx={{color: '#424242'}}/>
+              </ListItemIcon>
+              <ListItemText primary={'Purchases'} />
             </ListItemButton>
           </ListItem>
       </List>
@@ -106,7 +116,6 @@ function SideDrawer(props) {
         sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 }, zIndex: 0 }}
         aria-label="mailbox folders"
       >
-        {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
         <Drawer
           container={container}
           variant="temporary"
@@ -137,7 +146,7 @@ function SideDrawer(props) {
       </Box>
       <Box
         component="main"
-        sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
+        sx={{  p: '30px', width: {xs: '100%', sm: `calc(100% - ${drawerWidth}px)` } }}
       >
         <Toolbar />
         {children}
