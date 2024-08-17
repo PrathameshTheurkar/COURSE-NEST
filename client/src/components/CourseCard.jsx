@@ -30,7 +30,7 @@ export default function CourseCard() {
             PRICE
           </Typography>
           <Typography variant='h6' sx={{width: 'auto', display: 'flex', alignItems: 'center', mb: 4}}>
-            <CurrencyRupeeIcon />{course.price}
+            <CurrencyRupeeIcon fontSize='small'/>{course.price}
           </Typography>
 
           <Button variant='contained' sx={{width: '100%', borderRadius: 5, p: 1}}>BUY NOW</Button>

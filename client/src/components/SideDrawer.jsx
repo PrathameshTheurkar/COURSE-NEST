@@ -64,7 +64,7 @@ function SideDrawer(props) {
           </ListItem>
 
           <ListItem  disablePadding>
-            <ListItemButton onClick={() => navigate('/purcha')}>
+            <ListItemButton onClick={() => navigate('/purchases')}>
               <ListItemIcon>
                 <ShoppingCartIcon sx={{color: '#424242'}}/>
               </ListItemIcon>
@@ -123,7 +123,7 @@ function SideDrawer(props) {
           onTransitionEnd={handleDrawerTransitionEnd}
           onClose={handleDrawerClose}
           ModalProps={{
-            keepMounted: true, // Better open performance on mobile.
+            keepMounted: true, 
           }}
           sx={{
             display: { xs: 'block', sm: 'none' },
