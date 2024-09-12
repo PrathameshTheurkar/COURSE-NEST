@@ -18,6 +18,10 @@ import SchoolIcon from '@mui/icons-material/School';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useNavigate } from 'react-router-dom';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { Menu, MenuItem } from '@mui/material';
+import toast from 'react-hot-toast';
+import LogoutIcon from '@mui/icons-material/Logout';
+import axios from 'axios';
 
 const drawerWidth = 270;
 
@@ -25,6 +29,16 @@ function SideDrawer(props) {
   const { window, children } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [isClosing, setIsClosing] = React.useState(false);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleClose = () => {
+    setAnchorEl(null)
+  }
+
+  const handleMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  }
+
   const navigate = useNavigate()
 
   const handleDrawerClose = () => {
@@ -77,6 +91,27 @@ function SideDrawer(props) {
 
   const container = window !== undefined ? () => window().document.body : undefined;
 
+  const [auth, setAuth] = React.useState(false)
+  const [user, setUser] = React.useState({})
+  async function handleAuth(){
+      const {data} = await axios.get('http://localhost:3000/users/me', {
+          headers: {
+              "Content-Type" : "application/json",
+              "Authorization" : "Bearer "+localStorage.getItem('token')
+          }
+      }) 
+      if(data.auth){
+          setAuth(data.auth)
+          setUser(data.user)
+      }     
+  }
+
+  React.useEffect(() => {
+    handleAuth()
+    console.log(user)
+    console.log(auth)
+  }, [user, auth]) 
+
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
@@ -102,10 +137,34 @@ function SideDrawer(props) {
           </Typography>
 
           <Box sx={{display: 'flex', alignItems: 'center'}}>
-          <IconButton>
+          <IconButton onClick={handleMenu}>
           <AccountCircleIcon fontSize='large' sx={{color: '#2196f3'}}/>
           </IconButton>
-
+          <Menu
+                id="menu-appbar"
+                anchorEl={anchorEl}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                open={Boolean(anchorEl)}
+                onClose={handleClose}
+              >
+                <MenuItem onClick={handleClose}>{user.username}</MenuItem>
+                <MenuItem onClick={()=>{
+                  handleClose()
+                  localStorage.setItem('token', null)
+                  toast.success('Logout Successfully')
+                  navigate('/login')
+                }}
+                className='flex gap-x-2'
+                >Logout<LogoutIcon /> </MenuItem>
+              </Menu>
           </Box>
           </div>
 

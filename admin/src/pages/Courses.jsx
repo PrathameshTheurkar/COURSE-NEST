@@ -23,7 +23,7 @@ const Courses = () => {
        <Link to={`/course/${course._id}`}>
        <Card variant="outlined" sx={{ padding: 2, width: 300, height: 300, margin: 3, boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px", borderRadius: 3  }}>
       <CardActionArea>
-        <img style={{width: 300, height: 180}} src={course.imageLink} alt={course.title + ' image'}/> 
+        <img style={{width: '100%', height: 180}} src={course.imageLink} alt={course.title + ' image'}/> 
       </CardActionArea>
       <CardContent>
           <Typography gutterBottom variant="h5" component="div">

@@ -34,10 +34,18 @@ router.post('/signup', async (req, res) => {
       // res.cookie("token", token, {expire : 24 * 60 * 60 * 1000}).json({message : "Login Succesfully" , token1 : token})
       res.status(200).json({success: true, message : "Login Succesfully" , token})
     }else{
-      res.status(403).json({success: false, message : 'User not found'})
+      res.json({success: false, message : 'User not found'})
     }
    
   });
+
+  router.get('/me', authenticateJWTUser, async (req, res) => {
+    res.json({
+      success: true,
+      user: req.user,
+      auth: true 
+    })
+  })
   
   router.get('/courses', authenticateJWTUser, async (req, res) => {
     // logic to list all courses
@@ -89,11 +97,11 @@ router.post('/signup', async (req, res) => {
   
   router.get('/purchasedCourses', authenticateJWTUser, async (req, res) => {
     // logic to view purchased courses
-    const user = await User.findOne({username : req.user.username}).populate('purchasedCourses')
+    const user = await User.findOne({username : req.user.username }).populate('purchasedCourses')
     if(user){
-      res.json({purchasedCourses : user.purchasedCourses || []})
+      res.json({success: true, purchasedCourses : user.purchasedCourses || []})
     }else{
-      res.status(403).json({message:"User not found"})
+      res.status(403).json({success: false, message:"User not found"})
     }
   });
   

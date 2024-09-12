@@ -8,6 +8,7 @@ export const useCourse = () => {
     const setCourse = useSetRecoilState(courseState)
 
     const fetchCourse = async() => {
+        // TODO: load the user url from .env 
         const {data} = await axios.get(`http://localhost:3000/users/course/${courseId}`, {
             headers: {
                 'Content-Type': 'application/json',

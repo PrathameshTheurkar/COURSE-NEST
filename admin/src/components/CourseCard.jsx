@@ -15,7 +15,7 @@ export default function CourseCard() {
   return (
     <Card variant="outlined" sx={{ padding: 2, width: 300, height: 'auto', margin: 3, boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px", borderRadius: 3}}>
       <CardActionArea>
-        <img style={{width: 300, height: 180}} src={course.imageLink} alt={course.title + ' image'}/> 
+        <img style={{width: '100%', height: 180}} src={course.imageLink} alt={course.title + ' image'}/> 
       </CardActionArea>
       {/* <Divider  /> */}
       <CardContent>

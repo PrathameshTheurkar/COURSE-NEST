@@ -22,7 +22,10 @@ export const useLogin = () => {
             return
         }
 
-        toast.error('Incorrect username or password')
+        if(!data.success){
+            toast.error('Incorrect username or password')
+            return
+        }   
     }
     return {
         handleLogin
