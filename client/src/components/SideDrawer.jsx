@@ -153,7 +153,10 @@ function SideDrawer(props) {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleClose}>{user.username}</MenuItem>
+                <MenuItem onClick={() => {
+                  handleClose()
+                  navigate('/profile')
+                }}>Profile</MenuItem>
                 <MenuItem onClick={()=>{
                   handleClose()
                   localStorage.setItem('token', null)
