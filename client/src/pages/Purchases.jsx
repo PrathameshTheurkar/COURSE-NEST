@@ -32,6 +32,7 @@ const Purchases = () => {
         style={{
           display: "flex",
           justifyContent: "center",
+          flexWrap: "wrap",
         }}
       >
         {purchases.map((course) => {

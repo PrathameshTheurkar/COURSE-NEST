@@ -19,6 +19,7 @@ export const useCourse = () => {
         if(data.success){
             setCourse(data.course)
         }
+
     }
 
     return{

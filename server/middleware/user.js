@@ -10,7 +10,6 @@ const generateTokenUser = (user)=>{
 
 const authenticateJWTUser = (req, res, next)=>{
   const authHeader = req.headers.authorization
-
   if(authHeader){
     const token = authHeader.split(' ')[1]
 
@@ -27,7 +26,6 @@ const authenticateJWTUser = (req, res, next)=>{
   }else{
     res.sendStatus(401)
   }
-
 }
 
 

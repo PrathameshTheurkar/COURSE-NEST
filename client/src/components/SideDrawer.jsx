@@ -104,12 +104,10 @@ function SideDrawer(props) {
           setAuth(data.auth)
           setUser(data.user)
       }     
-  }
+}
 
   React.useEffect(() => {
     handleAuth()
-    console.log(user)
-    console.log(auth)
   }, [user, auth]) 
 
   return (

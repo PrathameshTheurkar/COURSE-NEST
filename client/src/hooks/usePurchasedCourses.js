@@ -14,7 +14,6 @@ const usePurchasedCourses = () => {
 
         if(data.success){
             setPurchases(data.purchasedCourses)
-            console.log(purchases)
         }
 
     }
