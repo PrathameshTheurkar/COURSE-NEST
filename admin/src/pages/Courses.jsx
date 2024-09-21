@@ -8,7 +8,7 @@ const Courses = () => {
 
   useEffect(()=>{
     fetchCourses()
-  }, [courses])
+  }, [])
 
     return <div
       style={{

@@ -1,37 +1,42 @@
-const express = require('express')
-const mongoose = require('mongoose')
-const {Admin, Course} = require("../db/db.js")
-const {generateTokenAdmin, authenticateJWTAdmin} = require('../middleware/admin.js')
+import express, {Request, Response} from 'express'
+import mongoose from 'mongoose'
+import {Admin, Course} from "../db/db"
+import {generateTokenAdmin, authenticateJWTAdmin} from '../middleware/admin'
 
 const router = express.Router()
 
+interface AuthenticatedRequest extends Request {
+  user?: {
+    username: string
+  }
+}
 
 // Admin routes
-router.post('/signup', async (req, res) => {
+router.post('/signup', async (req: Request, res: Response) => {
     // logic to sign up admin
     let username = req.body.username;
     let password = req.body.password;
     const {firstName, lastName} = req.body
   
-    admin = await Admin.findOne({username, password})
+    const admin = await Admin.findOne({username, password})
     if(admin){
       res.status(403).json({success : false,massage : 'Admin already exits'});
     }else{
       const newAdmin = new Admin({firstName, lastName, username , password})
       await newAdmin.save()
-      token = generateTokenAdmin(req.body)
+      const token = generateTokenAdmin(req.body)
       res.json({ success : true, message: 'Admin created successfully'  , token : token});
     //   res.cookie("token", token, {expire : 24 * 60 * 60 * 1000 }).json({ success : true,message: 'Admin created successfully'  , token1 : token});
     }
   });
   
-  router.post('/login', async (req, res) => {
+  router.post('/login', async (req: Request, res: Response) => {
     // logic to log in admin
     let {username , password} = req.body;
-    admin = await Admin.findOne({username , password})
+    const admin = await Admin.findOne({username , password})
   
     if(admin){
-      token = generateTokenAdmin(admin)
+      const token = generateTokenAdmin(admin)
       res.json({success : true, message : 'Login Successfully' , token1 : token})
     //   res.cookie("token", token, {expire : 24 * 60 * 60 * 1000 }).json({success : true, message : 'Login Successfully' , token1 : token})
     }else{
@@ -39,13 +44,13 @@ router.post('/signup', async (req, res) => {
     }
   });
   
-  router.get('/me' , authenticateJWTAdmin , (req,res)=>{
+  router.get('/me' , authenticateJWTAdmin , (req: AuthenticatedRequest, res: Response)=>{
     res.json({
       auth : true,
-      user : req.user  })
+      user : req.headers.user  })
   })
   
-  router.post('/courses', authenticateJWTAdmin , async (req, res) => {
+  router.post('/courses', authenticateJWTAdmin , async (req: Request, res: Response) => {
     // logic to create a course
     let course = req.body;
     
@@ -61,7 +66,7 @@ router.post('/signup', async (req, res) => {
     // }
   });
   
-  router.put('/course/:courseId' , authenticateJWTAdmin,async (req, res) => {
+  router.put('/course/:courseId' , authenticateJWTAdmin,async (req: Request, res: Response) => {
     // logic to update a course
     const isValid = mongoose.Types.ObjectId.isValid(req.params.courseId)
     if(!isValid){
@@ -75,7 +80,7 @@ router.post('/signup', async (req, res) => {
     }
   });
   
-  router.get('/course/:courseId', authenticateJWTAdmin ,async (req,res)=>{
+  router.get('/course/:courseId', authenticateJWTAdmin ,async (req: Request, res: Response)=>{
     // logic to get one course by courseId
     const isValid = mongoose.Types.ObjectId.isValid(req.params.courseId)
     if(!isValid){
@@ -90,13 +95,13 @@ router.post('/signup', async (req, res) => {
     }
   })
   
-  router.get('/courses', authenticateJWTAdmin ,async (req, res) => {
+  router.get('/courses', authenticateJWTAdmin ,async (req: Request, res: Response) => {
     // logic to get all courses
     const courses = await Course.find({})
     res.json(courses);
   });
 
-  router.delete('/course/:courseId', authenticateJWTAdmin, async(req, res)=>{
+  router.delete('/course/:courseId', authenticateJWTAdmin, async(req: Request, res: Response)=>{
     const {courseId} = req.params
     const courseExist = await Course.findById(courseId)
 
@@ -109,5 +114,4 @@ router.post('/signup', async (req, res) => {
   })
 
 
-  module.exports = router
-  
+export default router

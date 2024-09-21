@@ -108,7 +108,7 @@ function SideDrawer(props) {
 
   React.useEffect(() => {
     handleAuth()
-  }, [user, auth]) 
+  }, []) 
 
   return (
     <Box sx={{ display: 'flex' }}>
