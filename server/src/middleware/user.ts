@@ -28,7 +28,7 @@ export const authenticateJWTUser = (req: Request, res: Response, next: NextFunct
 
     // const token = req.cookies.token
 
-    jwt.verify(token, secretKeyUser, (err ,user)=>{
+    jwt.verify(token, secretKeyUser, (err, user)=>{
       if(err){
         return res.sendStatus(403)
       }

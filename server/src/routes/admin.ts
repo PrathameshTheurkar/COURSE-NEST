@@ -2,6 +2,7 @@ import express, {Request, Response} from 'express'
 import mongoose from 'mongoose'
 import {Admin, Course} from "../db/db"
 import {generateTokenAdmin, authenticateJWTAdmin} from '../middleware/admin'
+import {z} from 'zod'
 
 const router = express.Router()
 
@@ -11,13 +12,30 @@ interface AuthenticatedRequest extends Request {
   }
 }
 
+const newUserSchema = z.object({
+  username: z.string().min(2).max(50),
+  password: z.string().min(6).max(20),
+  firstName: z.string().min(2).max(20),
+  lastName: z.string().min(2).max(20)
+})
+
+const userSchema = z.object({
+  username: z.string().min(2).max(50),
+  password: z.string().min(6).max(20),
+})
+
 // Admin routes
 router.post('/signup', async (req: Request, res: Response) => {
     // logic to sign up admin
-    let username = req.body.username;
-    let password = req.body.password;
-    const {firstName, lastName} = req.body
-  
+
+    const parsedInput = newUserSchema.safeParse(req.body)
+    if(!parsedInput.success){
+      return res.status(411).json({
+        msg: parsedInput.error
+      })
+    }
+    const {username, password, firstName, lastName} = parsedInput.data
+
     const admin = await Admin.findOne({username, password})
     if(admin){
       res.status(403).json({success : false,massage : 'Admin already exits'});
@@ -32,7 +50,14 @@ router.post('/signup', async (req: Request, res: Response) => {
   
   router.post('/login', async (req: Request, res: Response) => {
     // logic to log in admin
-    let {username , password} = req.body;
+    const parsedInput = userSchema.safeParse(req.body)
+    if(!parsedInput.success){
+      return res.status(411).json({
+        msg: parsedInput.error
+      })
+    }
+    const {username, password} = parsedInput.data
+
     const admin = await Admin.findOne({username , password})
   
     if(admin){

@@ -5,6 +5,8 @@ import {
   generateTokenUser,
   authenticateJWTUser,
 } from "../middleware/user";
+import {z} from 'zod'
+import { parse } from "path";
 
 const router = express.Router();
 
@@ -16,10 +18,32 @@ interface AuthenticatedRequest extends Request {
   user?: User 
 }
 
+const newUserSchema = z.object({
+  username: z.string().min(2).max(50),
+  password: z.string().min(6).max(20),
+  firstName: z.string().min(2).max(20),
+  lastName: z.string().min(2).max(20)
+})
+
+const userSchema = z.object({
+  username: z.string().min(2).max(50),
+  password: z.string().min(6).max(20),
+})
+
+// Zod inference
+type userSchemaType = z.infer<typeof userSchema>
+
 // User routes
 router.post("/signup", async (req: Request, res: Response) => {
   // logic to sign up user
-  let { username, password, firstName, lastName } = req.body;
+  const parsedInput = newUserSchema.safeParse(req.body);
+  if(!parsedInput.success){
+    return res.status(411).json({
+      msg: parsedInput.error
+    })
+  }
+  let {username, password, firstName, lastName} = parsedInput.data
+
   const existingUser = await User.findOne({ username, password });
 
   if (existingUser) {
@@ -44,7 +68,14 @@ router.post("/signup", async (req: Request, res: Response) => {
 
 router.post("/login", async (req: Request, res: Response) => {
   // logic to log in user
-  const { username, password } = req.body;
+  const parsedInput = userSchema.safeParse(req.body);
+  if(!parsedInput.success){
+    return res.status(411).json({
+      msg: parsedInput.error
+    })
+  }
+  const {username, password} = parsedInput.data
+  
   const user1 = await User.findOne({ username, password });
   if (user1) {
     const token = generateTokenUser(user1);
