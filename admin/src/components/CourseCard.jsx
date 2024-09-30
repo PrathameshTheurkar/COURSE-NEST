@@ -9,7 +9,7 @@ export default function CourseCard() {
   const course = useRecoilValue(courseState)
 
   if (!course) {
-    return <div>No course data available</div>;
+    return <div>No course data available...</div>;
 }
 
   return (
