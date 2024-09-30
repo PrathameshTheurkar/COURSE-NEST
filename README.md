@@ -1,5 +1,3 @@
-
-https://github.com/user-attachments/assets/2cb53f1c-8252-473c-8ce9-23528517b493
 # COURSE-NEST
 Course Nest is a Course Selling Application where users can buy the tech courses and learn.
 
