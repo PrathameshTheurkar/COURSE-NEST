@@ -45,7 +45,7 @@ const  Appbar = (props) =>  {
   // const {user, auth, handleAuthentication} = useAuth()
 
   const [auth, setAuth] = React.useState(false)
-  const [user, setUser] = React.useState({})
+  const [user, setUser] = React.useState('')
   async function handleAuth(){
       const {data} = await axios.get('http://localhost:3000/admin/me', {
           headers: {
@@ -143,7 +143,7 @@ const  Appbar = (props) =>  {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleClose}>{user.username}</MenuItem>
+                <MenuItem onClick={handleClose}>{user}</MenuItem>
                 <MenuItem onClick={()=>{
                   handleClose()
                   localStorage.setItem('token', null)

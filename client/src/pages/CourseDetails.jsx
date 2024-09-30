@@ -29,9 +29,9 @@ const CourseDetails = () => {
                 flexDirection: {xs: 'column', sm: 'row'}
             }}>
             
-            <Box component='div' sx={{height: '300px', position: 'relative', top: 20, width: {xs: '450px', sm: '600px'}, border: '2px solid black', borderRadius: 5, }}>
-               {/* {course.description} */}
-            </Box>
+            {/* <Box component='div' sx={{height: '300px', position: 'relative', top: 20, width: {xs: '450px', sm: '600px'}, border: '2px solid black', borderRadius: 5, }}>
+               {course.description}
+            </Box> */}
         </Box>
     </div>
 }

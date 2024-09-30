@@ -12,7 +12,7 @@ const GeneralInfo = () => {
         <TextField fullWidth variant='outlined' size='small' margin="normal" value={'Theurkar'}  disabled/>
 
         <Typography variant='h7' sx={{fontWeight: 545}}>Email: </Typography>
-        <TextField fullWidth variant='outlined' size='small' margin="normal" value={'prathameshtheurkar037@gmail.com'}  disabled/>
+        <TextField fullWidth variant='outlined' size='small' margin="normal" value={'prathamesh@gmail.com'}  disabled/>
     </Box>
     </>
 }
