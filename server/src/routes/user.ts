@@ -6,7 +6,6 @@ import {
   authenticateJWTUser,
 } from "../middleware/user";
 import {z} from 'zod'
-import { parse } from "path";
 
 const router = express.Router();
 
@@ -31,7 +30,7 @@ const userSchema = z.object({
 })
 
 // Zod inference
-type userSchemaType = z.infer<typeof userSchema>
+// type userSchemaType = z.infer<typeof userSchema>
 
 // User routes
 router.post("/signup", async (req: Request, res: Response) => {

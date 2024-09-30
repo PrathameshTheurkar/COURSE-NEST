@@ -4,10 +4,10 @@
   "description": "### Description 1. Admins should be able to sign up 2. Admins should be able to create courses    1. Course has a title, description, price, and image link    2. Course should be able to be published or unpublished 3. Admins should be able to edit courses 4. Users should be able to sign up 5. Users should be able to purchase courses 6. Users should be able to view purchased courses 7. Users should be able to view all courses",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node ./index.ts",
-    "server": "nodemon ./index.ts",
-    "dev": "nodemon - exec 'ts-node' ./index.ts",
-    "start:prod": "npm run build && node start ./dist/index.js",
+    "start": "ts-node ./src/index.ts",
+    "server": "nodemon ./src/index.ts",
+    "dev": "nodemon - exec 'ts-node' ./src/index.ts",
+    "start:prod": "npm run build && node ./dist/index.js",
     "build": "npx tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

@@ -4,7 +4,7 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser'
 import adminRouter from './routes/admin'
 import userRouter from './routes/user'
-import dotenv, { config } from 'dotenv'
+import dotenv from 'dotenv'
 import path from 'path'
 
 const app = express();
@@ -16,7 +16,7 @@ app.use(express.json());
 const buildPath = path.join(__dirname, '../../client/dist')
 
 app.use(express.static(buildPath))
-app.use(cors)
+app.use(cors())
 app.use(cookieParser())
 
 
@@ -33,7 +33,6 @@ app.get('*', (req, res) => {
     if(err)res.status(500).send(err)
   })
 })
-
 
 app.listen(process.env.PORT, () => {
   console.log('Server is listening on port 3000');
