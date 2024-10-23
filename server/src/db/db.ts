@@ -1,6 +1,5 @@
 import mongoose from 'mongoose'
 
-// Define mongoose Schema 
 const userSchema = new mongoose.Schema({
     username: {
       type: String,
@@ -38,7 +37,6 @@ const userSchema = new mongoose.Schema({
     published : Boolean
   })
   
-  // Define mongoose models
 export const User = mongoose.model('User' , userSchema)
 export const Admin = mongoose.model('Admin' , adminSchema)
 export const Course = mongoose.model('Course' , courseSchema)
